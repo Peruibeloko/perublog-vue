@@ -4,7 +4,7 @@ import { onMounted, ref } from 'vue';
 const posts = ref([]);
 
 onMounted(async () => {
-  posts.value = await fetch('http://192.168.15.20:9595/post/').then(val => val.json());
+  posts.value = await fetch(`${process.env.BACKEND_URL}/post`).then(val => val.json());
 });
 </script>
 

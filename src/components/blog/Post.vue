@@ -5,7 +5,7 @@ const post = ref([]);
 const props = defineProps(['id']);
 
 onMounted(async () => {
-  post.value = await fetch(`http://192.168.15.20:9595/post/${props.id}`).then(val => val.json());
+  post.value = await fetch(`${process.env.BACKEND_URL}/post/${props.id}`).then(val => val.json());
 });
 </script>
 

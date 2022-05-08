@@ -1,5 +1,6 @@
+import 'dotenv/config';
 import router from './routes';
-import { createApp, provide, ref } from 'vue';
+import { createApp, ref } from 'vue';
 import App from './App.vue';
 
 const isSidebarOpen = ref(false);
