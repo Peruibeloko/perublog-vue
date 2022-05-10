@@ -4,7 +4,7 @@ import { onMounted, ref } from 'vue';
 const posts = ref([]);
 
 onMounted(async () => {
-  posts.value = await fetch(`${process.env.BACKEND_URL}/post`).then(val => val.json());
+  posts.value = await fetch(`${import.meta.env.VITE_BACKEND_URL}/post`).then(val => val.json());
 });
 </script>
 
@@ -13,7 +13,7 @@ onMounted(async () => {
     <li v-for="post in posts">
       <article id="post">
         <h1>
-          <router-link :to="`/blog/${post._id}`">
+          <router-link :to="{ name: 'post', params: { postId: post._id } }">
             {{ post.title }}
           </router-link>
         </h1>

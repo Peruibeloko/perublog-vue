@@ -7,7 +7,7 @@ const { _, updateSidebar } = inject('sidebar', false);
 <template>
   <header>
     <h1>
-      <router-link to="/blog" title="ibe">Peru</router-link>
+      <router-link :to="{ name: 'blog' }" title="ibe">Peru</router-link>
     </h1>
     <h2>
       Não tenho muita certeza <br />
@@ -45,7 +45,7 @@ header #hamb {
 
 @media (max-width: 768px) {
   header {
-    margin-left:1.5rem;
+    margin-left: 1.5rem;
     margin-bottom: 2rem;
     border-bottom: 3px var(--main-color) solid;
   }

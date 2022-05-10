@@ -1,4 +1,3 @@
-import 'dotenv/config';
 import router from './routes';
 import { createApp, ref } from 'vue';
 import App from './App.vue';

@@ -14,11 +14,25 @@ const { isSidebarOpen } = inject('sidebar', false);
       <HeaderVue />
       <SocialsVue />
     </div>
-    <RouterView />
+    <RouterView v-slot="{ Component }">
+      <Transition name="fade" mode="out-in">
+        <Component :is="Component" />
+      </Transition>
+    </RouterView>
   </main>
 </template>
 
 <style>
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
 main {
   max-width: 80rem;
   margin: 3rem auto;

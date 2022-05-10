@@ -10,18 +10,20 @@ import PostList from './components/blog/PostList.vue';
 const routes = [
   {
     path: '/',
+    name: 'home',
     component: Home
   },
   {
     path: '/blog',
     component: Blog,
     children: [
-      { path: '', component: PostList },
-      { path: ':id', component: Post, props: true }
+      { path: '', name: 'blog', component: PostList },
+      { path: ':postId', name: 'post', component: Post, props: true }
     ]
   },
   {
     path: '/portfolio',
+    name: 'portfolio',
     component: Portfolio
   }
 ];
