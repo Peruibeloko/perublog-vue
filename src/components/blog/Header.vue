@@ -17,7 +17,7 @@ const { _, updateSidebar } = inject('sidebar', false);
   </header>
 </template>
 
-<style scoped>
+<style lang="css" scoped>
 header {
   width: fit-content;
   height: fit-content;

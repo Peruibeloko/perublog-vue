@@ -1,6 +1,7 @@
 <script setup>
 import { onMounted, ref } from 'vue';
-import { onBeforeRouteUpdate, useRouter } from 'vue-router';
+import { onBeforeRouteUpdate } from 'vue-router';
+import Navbar from './Navbar.vue';
 
 const post = ref({});
 const prevPostId = ref('');
@@ -8,7 +9,6 @@ const nextPostId = ref('');
 const transitionActive = ref(false);
 
 const props = defineProps(['postId']);
-const router = useRouter();
 
 const fetchPostData = async postId => {
   const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/post/${postId}`).then(val =>
@@ -17,26 +17,6 @@ const fetchPostData = async postId => {
   post.value = res.postData;
   prevPostId.value = res.prevPostId;
   nextPostId.value = res.nextPostId;
-};
-
-const navToPrevPost = async () => {
-  await transition();
-  await router.push({
-    name: 'post',
-    params: {
-      postId: prevPostId?.value
-    }
-  });
-};
-
-const navToNextPost = async () => {
-  await transition();
-  await router.push({
-    name: 'post',
-    params: {
-      postId: nextPostId?.value
-    }
-  });
 };
 
 const transition = async () => {
@@ -55,6 +35,12 @@ onBeforeRouteUpdate(async (to, from) => {
 });
 
 onMounted(async () => await fetchPostData(props.postId));
+
+const navbarProps = {
+  prevPostId,
+  nextPostId,
+  transition
+};
 </script>
 
 <template>
@@ -71,15 +57,12 @@ onMounted(async () => await fetchPostData(props.postId));
         {{ new Date(post.datetime).toLocaleTimeString('pt-BR') }}</small
       >
     </div>
-    <aside class="navigation">
-      <button @click="navToPrevPost" :disabled="!prevPostId">← Post anterior</button>
-      <button @click="navToNextPost" :disabled="!nextPostId">Próximo post →</button>
-    </aside>
     <section id="content" v-html="post.content"></section>
+    <Navbar v-bind="navbarProps" />
   </article>
 </template>
 
-<style scoped>
+<style lang="css" scoped>
 .hide {
   opacity: 0;
 }

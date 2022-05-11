@@ -29,7 +29,7 @@ onMounted(async () => {
   </ul>
 </template>
 
-<style scoped>
+<style lang="css" scoped>
 #post-list {
   width: 70%;
   margin: 0 auto;

@@ -22,7 +22,7 @@ const { isSidebarOpen } = inject('sidebar', false);
   </main>
 </template>
 
-<style>
+<style lang="css" scoped>
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.5s ease;

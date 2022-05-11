@@ -71,7 +71,7 @@ const sites = [
   </main>
 </template>
 
-<style scoped>
+<style lang="css" scoped>
 main {
   display: flex;
   justify-content: center;

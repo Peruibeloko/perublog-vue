@@ -17,7 +17,7 @@ import { RouterLink } from 'vue-router';
   </main>
 </template>
 
-<style scoped>
+<style lang="css" scoped>
 main {
   display: flex;
   flex-direction: column;

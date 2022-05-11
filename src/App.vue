@@ -6,7 +6,7 @@ import { RouterView } from 'vue-router';
   <RouterView />
 </template>
 
-<style>
+<style lang="css">
 @import url('https://fonts.googleapis.com/css2?family=Fira+Sans:wght@500&family=Noto+Serif&family=PT+Sans:ital@0;1&display=swap');
 
 :root {

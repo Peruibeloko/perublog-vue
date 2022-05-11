@@ -30,7 +30,7 @@ const { isSidebarOpen, updateSidebar } = inject('sidebar', false);
   </aside>
 </template>
 
-<style scoped>
+<style lang="css" scoped>
 #close {
   display: none;
 }
