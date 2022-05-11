@@ -79,6 +79,7 @@ button {
   color: var(--gray);
   border: none;
   font-size: 1rem;
+  font-family: var(--sans-serif-regular);
   cursor: pointer;
   border: 1px solid var(--gray);
   border-radius: 1rem;

@@ -30,7 +30,7 @@ import { RouterView } from 'vue-router';
   box-sizing: border-box;
   list-style: none;
   background-color: var(--dark-gray);
-  color: var(--white)
+  color: var(--white);
 }
 
 * * {
