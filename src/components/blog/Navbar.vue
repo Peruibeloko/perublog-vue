@@ -65,13 +65,13 @@ const navToLastPost = async () => {
 </script>
 
 <template>
-  <aside class="navigation">
+  <nav class="navigation">
     <button @click="navToFirstPost">⇇ Primeiro post</button>
     <button @click="navToPrevPost" :disabled="!prevPostId.value">← Post anterior</button>
     <button @click="navToRandomPost">⤧ Post aleatório</button>
     <button @click="navToNextPost" :disabled="!nextPostId.value">Próximo post →</button>
     <button @click="navToLastPost">Último post ⇉</button>
-  </aside>
+  </nav>
 </template>
 
 <style lang="css" scoped>

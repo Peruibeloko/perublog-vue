@@ -79,7 +79,7 @@ const navbarProps = {
 #post small {
   font-family: var(--sans-serif-regular);
   font-size: 1rem;
-  color: rgb(93, 93, 93);
+  color: var(--gray);
   font-style: italic;
   display: block;
 }

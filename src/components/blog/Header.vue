@@ -35,6 +35,7 @@ header h2 {
   color: var(--gray);
   font-size: 1rem;
   font-family: var(--sans-serif-regular);
+  font-weight: normal;
   margin: 1rem 0;
   width: 15rem;
 }
