@@ -11,7 +11,7 @@ import { RouterLink } from 'vue-router';
       </header>
       <img src="https://avatars.githubusercontent.com/u/3859329" alt="Foto de perfil" />
     </div>
-    <div class="layout">
+    <div class="layout content">
       <article>
         <p>Pode me chamar de Carlinhos!</p>
         <p>
@@ -63,7 +63,6 @@ main {
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 100vh;
   justify-content: center;
   max-width: 70rem;
 }
@@ -119,5 +118,68 @@ p::first-letter {
   content: '>';
   color: var(--main-color);
   margin-right: 0.5rem;
+}
+
+@media (max-width: 768px) {
+  .layout {
+    flex-direction: column;
+    margin: 0;
+  }
+  
+  .layout.content {
+    flex-direction: column-reverse;
+  }
+
+  article {
+    width: 100%;
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+  }
+
+  header {
+    margin: 2rem 0;
+    align-items: center;
+  }
+
+  header h1 {
+    font-family: var(--sans-serif-title);
+    font-size: 3rem;
+    border-left: none;
+    border-bottom: 3px solid var(--main-color);
+    padding-left: 0;
+  }
+
+  header span {
+    color: var(--gray);
+    font-family: var(--sans-serif-regular);
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+  }
+  
+  p {
+    font-size: 1.1rem;
+  }
+
+  .links {
+    width: 100%;
+    margin: 3rem 0;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+  }
+
+  .links a {
+    border-bottom: 3px solid var(--main-color);
+  }
+
+  .links a:first-of-type {
+    margin-bottom: 0rem;
+  }
+
+  .links a::before {
+    content: '';
+    margin-right: 0;
+  }
 }
 </style>
