@@ -23,7 +23,6 @@ const login = async () => {
       .then(res => res.data);
 
     localStorage.setItem('authToken', token);
-    axiosSetup.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 
     const routeParams = urlDecodeObjectValues(currentRoute.query);
     const navResult = router.push(routeParams);
