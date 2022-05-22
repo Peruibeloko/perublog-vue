@@ -1,5 +1,6 @@
 <script setup>
-import { onMounted, ref } from 'vue';
+import axiosSetup from '../../util/axios-setup';
+import { computed, onMounted, ref } from 'vue';
 import { onBeforeRouteUpdate } from 'vue-router';
 import Navbar from './Navbar.vue';
 
@@ -8,12 +9,15 @@ const prevPostId = ref('');
 const nextPostId = ref('');
 const transitionActive = ref(false);
 
+const timestamp = computed(() => {
+  const date = new Date(post.value.datetime);
+  return `${date.toLocaleDateString('pt-BR')} às ${date.toLocaleTimeString('pt-BR')}`;
+});
+
 const props = defineProps(['postId']);
 
-const fetchPostData = async postId => {
-  const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/post/${postId}`).then(val =>
-    val.json()
-  );
+const getPostData = async postId => {
+  const res = await axiosSetup.get(`/post/${postId}`).then(res => res.data);
   post.value = res.postData;
   prevPostId.value = res.prevPostId;
   nextPostId.value = res.nextPostId;
@@ -31,10 +35,10 @@ const transition = async () => {
 
 onBeforeRouteUpdate(async (to, from) => {
   if (to.params.postId === from.params.postId) return false;
-  await fetchPostData(to.params.postId);
+  await getPostData(to.params.postId);
 });
 
-onMounted(async () => await fetchPostData(props.postId));
+onMounted(async () => await getPostData(props.postId));
 
 const navbarProps = {
   prevPostId,
@@ -52,10 +56,7 @@ const navbarProps = {
     </h1>
     <div class="info">
       <small id="author">Post feito por {{ post.author }}</small>
-      <small id="date"
-        >{{ new Date(post.datetime).toLocaleDateString('pt-BR') }} às
-        {{ new Date(post.datetime).toLocaleTimeString('pt-BR') }}</small
-      >
+      <small id="date">{{ timestamp }}</small>
     </div>
     <section id="content" v-html="post.content"></section>
     <Navbar v-bind="navbarProps" />

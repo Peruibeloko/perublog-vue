@@ -1,5 +1,6 @@
 <script setup>
 import { useRouter } from 'vue-router';
+import axiosSetup from '../../util/axios-setup';
 
 const router = useRouter();
 const props = defineProps(['transition', 'prevPostId', 'nextPostId']);
@@ -25,9 +26,7 @@ const navToNextPost = async () => {
 };
 
 const navToRandomPost = async () => {
-  const postId = await fetch(`${import.meta.env.VITE_BACKEND_URL}/post/random`).then(val =>
-    val.json()
-  );
+  const postId = await axiosSetup.get('/post/random').then(res => res.data);
   await props.transition();
   await router.push({
     name: 'post',
@@ -38,9 +37,7 @@ const navToRandomPost = async () => {
 };
 
 const navToFirstPost = async () => {
-  const postId = await fetch(`${import.meta.env.VITE_BACKEND_URL}/post/first`).then(val =>
-    val.json()
-  );
+  const postId = await axiosSetup.get('/post/first').then(res => res.data);
   await props.transition();
   await router.push({
     name: 'post',
@@ -51,9 +48,7 @@ const navToFirstPost = async () => {
 };
 
 const navToLastPost = async () => {
-  const postId = await fetch(`${import.meta.env.VITE_BACKEND_URL}/post/latest`).then(val =>
-    val.json()
-  );
+  const postId = await axiosSetup.get('/post/latest').then(res => res.data);
   await props.transition();
   await router.push({
     name: 'post',
@@ -66,11 +61,11 @@ const navToLastPost = async () => {
 
 <template>
   <nav class="navigation">
-    <button @click="navToFirstPost">⇇ Primeiro post</button>
+    <button @click="navToFirstPost" :disabled="!prevPostId.value">⇇ Primeiro post</button>
     <button @click="navToPrevPost" :disabled="!prevPostId.value">← Post anterior</button>
     <button @click="navToRandomPost">⤧ Post aleatório</button>
     <button @click="navToNextPost" :disabled="!nextPostId.value">Próximo post →</button>
-    <button @click="navToLastPost">Último post ⇉</button>
+    <button @click="navToLastPost" :disabled="!nextPostId.value">Último post ⇉</button>
   </nav>
 </template>
 
@@ -90,6 +85,11 @@ button {
 button:hover {
   border-color: var(--white);
   color: var(--white);
+}
+
+button:disabled {
+  opacity: 0;
+  cursor: default;
 }
 
 .navigation {

@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
+import axiosSetup from '../util/axios-setup.js';
 
 import { urlDecodeObjectValues } from '../util/misc.js';
 
@@ -13,18 +14,14 @@ const loginInfo = ref({
 });
 
 const login = async () => {
-  const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/auth/login`, {
-    method: 'POST',
-    body: JSON.stringify({
+  const res = await axiosSetup.post('/auth/login', {
+    body: {
       email: loginInfo.value.email,
       token: loginInfo.value.otp
-    }),
-    headers: {
-      'Content-Type': 'application/json'
     }
   });
 
-  if (res.ok) {
+  if (res.status === 200) {
     const token = await res.text();
     console.log(token);
     localStorage.setItem('authToken', token);

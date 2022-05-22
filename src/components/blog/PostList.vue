@@ -1,10 +1,16 @@
 <script setup>
 import { onMounted, ref } from 'vue';
+import axiosSetup from '../../util/axios-setup';
 
 const posts = ref([]);
 
+const timestamp = datetime => {
+  const date = new Date(datetime);
+  return `${date.toLocaleDateString('pt-BR')} às ${date.toLocaleTimeString('pt-BR')}`;
+};
+
 onMounted(async () => {
-  posts.value = await fetch(`${import.meta.env.VITE_BACKEND_URL}/post`).then(val => val.json());
+  posts.value = await axiosSetup.get('/post').then(res => res.data);
 });
 </script>
 
@@ -19,10 +25,7 @@ onMounted(async () => {
         </h1>
         <div class="info">
           <small id="author">Post feito por {{ post.author }}</small>
-          <small id="date"
-            >{{ new Date(post.datetime).toLocaleDateString('pt-BR') }} às
-            {{ new Date(post.datetime).toLocaleTimeString('pt-BR') }}</small
-          >
+          <small id="date">{{ timestamp(post.datetime) }}</small>
         </div>
       </article>
     </li>
