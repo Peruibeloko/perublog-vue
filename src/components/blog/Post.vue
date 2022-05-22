@@ -55,8 +55,7 @@ const navbarProps = {
       </router-link>
     </h1>
     <div class="info">
-      <small id="author">Post feito por {{ post.author }}</small>
-      <small id="date">{{ timestamp }}</small>
+      <small id="author">Post feito por {{ post.author }} no dia {{ timestamp }}</small>
     </div>
     <section id="content" v-html="post.content"></section>
     <Navbar v-bind="navbarProps" />
@@ -141,6 +140,11 @@ const navbarProps = {
   background-color: hsla(0, 0%, 100%, 0.1);
   border-radius: 1rem;
   font-style: italic;
+}
+
+#content :deep(blockquote > p) {
+  margin: 0;
+  line-height: 1.5rem;
 }
 
 #content :deep(blockquote::before),
