@@ -14,25 +14,24 @@ const loginInfo = ref({
 });
 
 const login = async () => {
-  const res = await axiosSetup.post('/auth/login', {
-    body: {
-      email: loginInfo.value.email,
-      token: loginInfo.value.otp
-    }
-  });
+  try {
+    const token = await axiosSetup
+      .post('/auth/login', {
+        email: loginInfo.value.email,
+        token: loginInfo.value.otp
+      })
+      .then(res => res.data);
 
-  if (res.status === 200) {
-    const token = await res.text();
-    console.log(token);
     localStorage.setItem('authToken', token);
+
     const routeParams = urlDecodeObjectValues(currentRoute.query);
     const navResult = router.push(routeParams);
     if (navResult) {
-      console.log('fuck');
+      console.error('Provided destination route is invalid');
     }
-  } else {
-    console.log();
-    return;
+  } catch (err) {
+    console.error(err.response.data);
+    return false;
   }
 };
 </script>
@@ -45,7 +44,7 @@ const login = async () => {
         type="email"
         placeholder="Email"
         v-model.trim="loginInfo.email"
-        autocomplete="email"
+        autocomplete="username"
         required
       />
       <input type="tel" placeholder="OTP Code" v-model="loginInfo.otp" required />
