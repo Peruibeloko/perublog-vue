@@ -6,10 +6,10 @@ const { isSidebarOpen, updateSidebar } = inject('sidebar', false);
 
 <template>
   <aside id="socials" :class="{ active: isSidebarOpen }">
-    <div id="aside-header">
+    <section id="aside-header">
       <h1>Redes</h1>
       <span id="close" @click="updateSidebar">→</span>
-    </div>
+    </section>
     <ul>
       <li id="soundcloud">
         <a href="https://soundcloud.com/dynmic" target="_blank">SoundCloud</a>
@@ -27,6 +27,7 @@ const { isSidebarOpen, updateSidebar } = inject('sidebar', false);
         <a href="https://twitter.com/dynmicdnb" target="_blank">Twitter</a>
       </li>
     </ul>
+    <RouterLink :to="{ name: 'home' }" class="home-link">🏠 Home</RouterLink>
   </aside>
 </template>
 
@@ -91,6 +92,25 @@ const { isSidebarOpen, updateSidebar } = inject('sidebar', false);
   border-color: #1da1f2 !important;
 }
 
+.home-link {
+  margin-top: 2rem;
+  width: fit-content;
+  color: var(--gray);
+  border: none;
+  font-size: 1rem;
+  font-family: var(--sans-serif-regular);
+  cursor: pointer;
+  border: 1px solid var(--gray);
+  border-radius: 1rem;
+  padding: 0.5rem 1rem;
+  transition-duration: 200ms;
+}
+
+.home-link:hover {
+  border-color: var(--white);
+  color: var(--white);
+}
+
 @media (max-width: 768px) {
   #socials {
     margin: 0;
@@ -113,7 +133,7 @@ const { isSidebarOpen, updateSidebar } = inject('sidebar', false);
   }
 
   #socials ul {
-    margin-top: 60%;
+    margin-top: 3rem;
   }
 
   #socials ul li {
@@ -128,6 +148,14 @@ const { isSidebarOpen, updateSidebar } = inject('sidebar', false);
     display: inline-block;
     font-size: 1.5rem;
     text-align: center;
+  }
+
+  .home-link {
+    margin-top: 10rem;
+    width: 100%;
+    text-align: center;
+    font-size: 1.5rem;
+    padding: 2rem 0;
   }
 
   #socials.active {
