@@ -11,7 +11,7 @@ export default defineConfig(({ command, mode }) => {
       outDir: 'docs'
     },
     define: {
-      VITE_BACKEND_URL: env.VITE_BACKEND_URL
+      VITE_BACKEND_URL: `'${env.VITE_BACKEND_URL}'`
     }
   };
 });
