@@ -4,25 +4,26 @@ const sites = [
   {
     title: 'Time Calculator',
     href: 'https://peruibeloko.github.io/time-calculator/',
-    description: `A calculator for time! Uses the experimental Temporal Object to manipulate time\
-    entries and perform simple arithmetic with them`,
+    description: `Uma calculadora de tempo! Utiliza o objeto experimental Temporal para manipular
+    registros de tempo e realizar aritmética simples com eles, como somar dois intervalos de tempo
+    ou subtraír 43 minutos de 1h e 25min, por exemplo.`,
     uses: ['Temporal', 'Vue 3']
   },
   {
     title: 'typewriter',
     href: 'https://github.com/Peruibeloko/typewriter/',
-    description: `Bare-bones headless CMS for simple blogkeeping. Provides a handful of REST\
-    endpoints to CRUD posts, which are stored in a MongoDB database. It powers this site's blog!\
-    Includes an authentication that I plan on turning into its own thing in the future`,
+    description: `Um CMS headless minimalista para gerenciamento de blogs simples. Oferece um
+    punhado de endpoints REST para realizar CRUD de posts escritos em Markdown, que são armazenados
+    num banco MongoDB. Ele que está por trás do blog desse site! Inclui um sistema de autenticação
+    que eu pretendo separar no futuro.`,
     uses: ['Express', 'Mongoose', 'Markdown']
   },
   {
     title: 'Q&A Bot',
     href: 'https://github.com/Peruibeloko/qnabot/',
-    description:
-      'An Express server that powers a Discord bot, and a Vue app that displays the\
-    questions sent in the configured channel. It updates in real-time using WebSockets and features\
-    ranking by votes',
+    description: `O conjunto de um servidor Express que abriga um bot de Discord, e um aplicativo
+    Vue que exibe as perguntas enviadas no canal configurado. Atualiza em tempo real usando
+    WebScokets e oferece ordenação automática por votos!`,
     uses: ['Express', 'discord.js', 'Vue 3', 'WebSockets']
   }
 ];
