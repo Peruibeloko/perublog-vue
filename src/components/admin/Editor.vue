@@ -2,9 +2,9 @@
 import { ref } from 'vue';
 import { onBeforeRouteLeave } from 'vue-router';
 import axiosSetup from '../../util/axios-setup';
+import MonacoWrapperVue from './MonacoWrapper.vue';
 
 const props = defineProps(['id']);
-
 const post = ref({
   title: '',
   author: '',
@@ -34,7 +34,7 @@ onBeforeRouteLeave(() => {
   <form id="composer" @submit="e => e.preventDefault()">
     <input type="text" id="title" v-model="post.title" placeholder="Title" />
     <input type="text" id="author" v-model="post.author" placeholder="Author" />
-    <textarea id="content" v-model="post.content"></textarea>
+    <MonacoWrapperVue v-model="post.content" />
     <fieldset id="footer">
       <button type="button" @click="saveDraft">Save Draft</button>
       <button type="button" @click="publish">Publish</button>
