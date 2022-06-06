@@ -7,7 +7,16 @@ const sites = [
     description: `Uma calculadora de tempo! Utiliza o objeto experimental Temporal para manipular
     registros de tempo e realizar aritmética simples com eles, como somar dois intervalos de tempo
     ou subtraír 43 minutos de 1h e 25min, por exemplo.`,
-    uses: ['Temporal', 'Vue 3']
+    uses: [
+      {
+        name: 'Temporal',
+        link: 'tc39/proposal-temporal'
+      },
+      {
+        name: 'Vue 3',
+        link: 'vuejs/vue'
+      }
+    ]
   },
   {
     title: 'typewriter',
@@ -16,7 +25,20 @@ const sites = [
     punhado de endpoints REST para realizar CRUD de posts escritos em Markdown, que são armazenados
     num banco MongoDB. Ele que está por trás do blog desse site! Inclui um sistema de autenticação
     que eu pretendo separar no futuro.`,
-    uses: ['Express', 'Mongoose', 'Markdown']
+    uses: [
+      {
+        name: 'Express',
+        link: 'expressjs/express'
+      },
+      {
+        name: 'Mongoose',
+        link: 'Automattic/mongoose'
+      },
+      {
+        name: 'Marked',
+        link: 'markedjs/marked'
+      }
+    ]
   },
   {
     title: 'Q&A Bot',
@@ -24,9 +46,29 @@ const sites = [
     description: `O conjunto de um servidor Express que abriga um bot de Discord, e um aplicativo
     Vue que exibe as perguntas enviadas no canal configurado. Atualiza em tempo real usando
     WebScokets e oferece ordenação automática por votos!`,
-    uses: ['Express', 'discord.js', 'Vue 3', 'WebSockets']
+    uses: [
+      {
+        name: 'Express',
+        link: 'expressjs/express'
+      },
+      {
+        name: 'discord.js',
+        link: 'discordjs/discord.js'
+      },
+      {
+        name: 'Vue 3',
+        link: 'vuejs/vue'
+      },
+      {
+        name: 'WebSockets',
+        link: 'https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API',
+        notGh: true
+      }
+    ]
   }
 ];
+
+const buildGhLink = repo => `https://github.com/${repo}`;
 </script>
 
 <template>
@@ -42,7 +84,11 @@ const sites = [
         </a>
         <p class="description">{{ site.description }}</p>
         <ul class="technologies">
-          <li v-for="tech in site.uses">{{ tech }}</li>
+          <li v-for="tech in site.uses">
+            <a :href="tech.notGh ? tech.link : buildGhLink(tech.link)">
+              {{ tech.name }}
+            </a>
+          </li>
         </ul>
       </li>
     </ul>
@@ -121,14 +167,21 @@ header h1 {
   display: flex;
 }
 
-.card .technologies li {
+.card .technologies li a {
+  cursor: pointer;
   font-size: 0.75rem;
   font-family: var(--sans-serif-regular);
   margin: 0 0.25rem;
   padding: 0.25rem 0.5rem;
+  background-color: var(--black);
+  color: var(--white);
+  border-radius: 1rem;
+  border: 1px solid var(--white);
+  transition-duration: 200ms;
+}
+.card .technologies li:hover a {
   background-color: var(--white);
   color: var(--black);
-  border-radius: 1rem;
 }
 
 footer {
