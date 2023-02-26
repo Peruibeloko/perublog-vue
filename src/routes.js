@@ -9,7 +9,7 @@ import Login from './pages/Login.vue';
 
 import Post from './components/blog/Post.vue';
 import PostList from './components/blog/PostList.vue';
-import Composer from './components/admin/Composer.vue';
+import Composer from './pages/Composer.vue';
 
 import { isLoggedIn } from './util/auth';
 

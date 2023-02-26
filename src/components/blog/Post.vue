@@ -10,7 +10,7 @@ const nextPostId = ref('');
 const transitionActive = ref(false);
 
 const timestamp = computed(() => {
-  const date = new Date(post.value.datetime);
+  const date = new Date(post.value.createdAt);
   return `${date.toLocaleDateString('pt-BR')} às ${date.toLocaleTimeString('pt-BR')}`;
 });
 

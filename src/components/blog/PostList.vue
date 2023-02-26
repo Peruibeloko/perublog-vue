@@ -4,8 +4,8 @@ import axiosSetup from '../../util/axios-setup';
 
 const posts = ref([]);
 
-const timestamp = datetime => {
-  const date = new Date(datetime);
+const timestamp = createdAt => {
+  const date = new Date(createdAt);
   return `${date.toLocaleDateString('pt-BR')} às ${date.toLocaleTimeString('pt-BR')}`;
 };
 
@@ -25,7 +25,7 @@ onMounted(async () => {
         </h1>
         <div class="info">
           <small id="author">Post feito por {{ post.author }}</small>
-          <small id="date">{{ timestamp(post.datetime) }}</small>
+          <small id="date">{{ timestamp(post.createdAt) }}</small>
         </div>
       </article>
     </li>

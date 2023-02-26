@@ -1,40 +1,51 @@
 <script setup>
-import { ref } from 'vue';
-import { onBeforeRouteLeave } from 'vue-router';
+import { inject, onMounted, ref } from 'vue';
+import { onBeforeRouteLeave, onBeforeRouteUpdate } from 'vue-router';
 import axiosSetup from '../../util/axios-setup';
 import MonacoWrapperVue from './MonacoWrapper.vue';
 
-const props = defineProps(['id']);
-const post = ref({
-  title: '',
-  author: '',
-  content: '',
-  id: props.id ?? ''
-});
+const draftId = inject('draftId');
+const post = ref({});
 
-const saveDraft = async () => {};
+const saveDraft = async () => {
+  if (draftId) {
+    axiosSetup.patch(`/draft/${draftId}`, {
+      title: post.value.title,
+      content: post.value.post
+    });
+  } else {
+    post.value.id = axiosSetup
+      .post('/draft', {
+        title: post.value.title,
+        content: post.value.post
+      })
+      .then(res => res.data);
+  }
+};
+
 const publish = async () => {
-  const postId = axiosSetup
+  axiosSetup
     .post('/post', {
       title: post.value.title,
-      author: post.value.author,
-      post: post.value.content
+      post: post.value.post
     })
     .then(res => res.data);
-  console.log(postId);
 };
 
 onBeforeRouteLeave(() => {
-  if (!post.value.id && post.value.content)
+  if (!post.value.id && post.value.post)
     return window.confirm('Do you really want to leave? you have unsaved changes!');
+});
+
+onMounted(async () => {
+  post.value = await axiosSetup(`/draft/${draftId}`).then(res => res.data);
 });
 </script>
 
 <template>
   <form id="composer" @submit="e => e.preventDefault()">
     <input type="text" id="title" v-model="post.title" placeholder="Title" />
-    <input type="text" id="author" v-model="post.author" placeholder="Author" />
-    <MonacoWrapperVue v-model="post.content" />
+    <MonacoWrapperVue v-model="post.post" />
     <fieldset id="footer">
       <button type="button" @click="saveDraft">Save Draft</button>
       <button type="button" @click="publish">Publish</button>

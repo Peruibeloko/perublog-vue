@@ -1,13 +1,15 @@
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, inject, onMounted } from 'vue';
 import * as monaco from 'monaco-editor';
 
+import axiosSetup from '../../util/axios-setup';
+
+const draftId = inject('draftId');
 defineProps(['modelValue']);
 const emit = defineEmits(['update:modelValue']);
-
 const editor = ref(null);
 
-onMounted(() => {
+onMounted(async () => {
   monaco.editor.defineTheme('gruvbox', {
     base: 'vs-dark',
     inherit: true,
@@ -24,6 +26,9 @@ onMounted(() => {
     tabSize: 2,
     fontFamily: 'monospace'
   });
+
+  const content = await axiosSetup.get(`/draft/${draftId}`).then(res => res.data.post);
+  editorInstance.setValue(content);
 
   editorInstance.getModel().onDidChangeContent(e => {
     emit('update:modelValue', editorInstance.getValue());
